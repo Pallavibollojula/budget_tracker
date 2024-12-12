@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="form-container bg-dark p-5 rounded shadow-lg animate__animated animate__fadeInUp" style="width: 450px;">
+        <h2 class="text-primary text-center mb-4">Create Your Account</h2>
+        <form method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+            
+            <!-- Name Input -->
+            <div class="mb-3">
+                <label for="name" class="form-label text-light">Name:</label>
+                <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    class="form-control bg-secondary text-light border-0" 
+                    placeholder="Enter your name" 
+                    required>
+                <div class="invalid-feedback">
+                    Please enter your name.
+                </div>
+            </div>
+
+            <!-- Email Input -->
+            <div class="mb-3">
+                <label for="email" class="form-label text-light">Email:</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    class="form-control bg-secondary text-light border-0" 
+                    placeholder="Enter your email" 
+                    required>
+                <div class="invalid-feedback">
+                    Please enter a valid email address.
+                </div>
+            </div>
+
+            <!-- Phone Input -->
+            <div class="mb-3">
+                <label for="phone" class="form-label text-light">Phone:</label>
+                <input 
+                    type="text" 
+                    id="phone" 
+                    name="phone" 
+                    class="form-control bg-secondary text-light border-0" 
+                    placeholder="Enter your phone number" 
+                    pattern="\d{10}" 
+                    required>
+                <div class="invalid-feedback">
+                    Please enter a 10-digit phone number.
+                </div>
+            </div>
+
+            <!-- Password Input -->
+            <div class="mb-3">
+                <label for="password" class="form-label text-light">Password:</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    class="form-control bg-secondary text-light border-0" 
+                    placeholder="Create a password" 
+                    minlength="6" 
+                    required>
+                <div class="invalid-feedback">
+                    Password must be at least 6 characters long.
+                </div>
+            </div>
+
+            <!-- Register Button -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary w-100 py-2">
+                    Register
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap Validation Script -->
+<script>
+    (function () {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
+
+<!-- Animation Library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+{% endblock %}

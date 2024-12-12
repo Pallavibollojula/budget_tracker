@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Update Income{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="form-container bg-light p-4 rounded shadow-lg" style="width: 500px;">
+        <h2 class="text-center text-primary mb-4">Update Income</h2>
+        <form method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+            
+            <!-- Category Selection -->
+            <div class="mb-3">
+                <label for="category" class="form-label">Category:</label>
+                <select 
+                    name="category" 
+                    id="category" 
+                    class="form-select" 
+                    required>
+                    <option value="" disabled selected>Select a category</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+                <div class="invalid-feedback">
+                    Please select a category.
+                </div>
+            </div>
+
+            <!-- Amount Input -->
+            <div class="mb-3">
+                <label for="amount" class="form-label">Amount:</label>
+                <input 
+                    type="number" 
+                    name="amount" 
+                    id="amount" 
+                    class="form-control" 
+                    step="0.01" 
+                    placeholder="Enter the amount" 
+                    required>
+                <div class="invalid-feedback">
+                    Please enter a valid amount.
+                </div>
+            </div>
+
+            <!-- Description Input -->
+            <div class="mb-3">
+                <label for="description" class="form-label">Description:</label>
+                <textarea 
+                    name="description" 
+                    id="description" 
+                    class="form-control" 
+                    placeholder="Optional description"></textarea>
+            </div>
+
+            <!-- Date Input -->
+            <div class="mb-3">
+                <label for="date" class="form-label">Date:</label>
+                <input 
+                    type="date" 
+                    name="date" 
+                    id="date" 
+                    class="form-control" 
+                    value="{{ today|date:'Y-m-d' }}" 
+                    required>
+                <div class="invalid-feedback">
+                    Please select a date.
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary w-100 py-2">
+                    Update Income
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap Validation Script -->
+<script>
+    (function () {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
+{% endblock %}

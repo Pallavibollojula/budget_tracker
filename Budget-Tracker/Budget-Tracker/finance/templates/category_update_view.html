@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Category{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="form-container bg-light p-4 rounded shadow-lg" style="width: 500px;">
+        <h2 class="text-center text-primary mb-4">Update Category</h2>
+        <form method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+            
+            <!-- Category Name -->
+            <div class="mb-3">
+                <label for="name" class="form-label">Category Name:</label>
+                <input 
+                    type="text" 
+                    name="name" 
+                    id="name" 
+                    class="form-control" 
+                    placeholder="Enter category name" 
+                    required>
+                <div class="invalid-feedback">
+                    Please enter a valid category name.
+                </div>
+            </div>
+
+            <!-- Category Type -->
+            <div class="mb-3">
+                <label for="category_type" class="form-label">Category Type:</label>
+                <select 
+                    name="category_type" 
+                    id="category_type" 
+                    class="form-select" 
+                    required>
+                    <option value="" disabled selected>Select a category type</option>
+                    <option value="Expense">Expense</option>
+                    <option value="Income">Income</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please select a category type.
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary w-100 py-2">
+                    Update Category
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap Validation Script -->
+<script>
+    (function () {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Finance Tracker{% endblock %}
+
+{% block content %}
+<div 
+    class="bg-gradient" 
+    style="
+        background: linear-gradient(135deg, #1E3C72 0%, #2A5298 100%);
+        height: 100vh; 
+        position: relative;
+        font-family: 'Poppins', sans-serif;
+    ">
+    <div 
+        class="overlay d-flex flex-column justify-content-center align-items-center text-center" 
+        style="
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0, 0, 0, 0.75); 
+            color: #FFFFFF;
+        ">
+        <h1 
+            class="animate__animated animate__fadeInDown" 
+            style="
+                animation-duration: 1.5s; 
+                font-size: 3rem; 
+                font-weight: 700;
+            ">
+            Welcome, {{ user.name }}!
+        </h1>
+
+        <p 
+            class="mt-3 animate__animated animate__fadeInUp" 
+            style="
+                animation-delay: 1s; 
+                animation-duration: 1.5s; 
+                font-size: 1.5rem; 
+                max-width: 600px;
+                line-height: 1.8;
+            ">
+            Take control of your finances today! Track income, manage expenses, and stay ahead with real-time financial insights.  
+        </p>
+
+        <div 
+            class="mt-4 animate__animated animate__zoomIn" 
+            style="
+                animation-delay: 2s; 
+                animation-duration: 1.5s;
+            ">
+            <button 
+                class="btn btn-light px-4 py-2 rounded-pill fw-bold shadow"
+                style="
+                    color: #1E3C72; 
+                    background-color: #FFFFFF; 
+                    border: none; 
+                    font-size: 1.2rem; 
+                    transition: transform 0.3s;
+                "
+                onmouseover="this.style.transform='scale(1.1)';"
+                onmouseout="this.style.transform='scale(1)';">
+                
+                <a href="{% url 'dashboard' %}" style="text-decoration:None">Get Started</a>
+            </button>
+        </div>
+
+        <div 
+            class="mt-5 text-light animate__animated animate__fadeInUp" 
+            style="animation-delay: 3s;">
+            {% comment %} <p>
+                Join <strong>10,000+ users</strong> on their journey to financial independence.
+                <br>
+                <i>"A goal without a plan is just a wish." - Antoine de Saint-Exupéry</i>
+            </p> {% endcomment %}
+        </div>
+    </div>
+</div>
+
+<!-- Optional: Adding animations library and Google Fonts -->
+<link 
+    rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<link 
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" 
+    rel="stylesheet">
+{% endblock %}
