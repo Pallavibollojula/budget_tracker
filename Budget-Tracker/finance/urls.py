@@ -2,7 +2,9 @@
 from django.urls import path
 from . import views
 from django.conf import settings
-
+from .views import budget_report
+from django.contrib import admin
+from django.urls import path, include
 urlpatterns = [
     path("", views.home, name="home"),  # Home page
    path("dashboard/", views.dashboard_view, name="dashboard"),
@@ -30,6 +32,9 @@ urlpatterns = [
     path("categories/<int:id>/update/", views.category_update_view, name="category_update"),
     path("categories/<int:id>/delete/", views.category_delete_view, name="category_delete"),
     path('budget-setting/', views.budget_setting_view, name='budget_setting'),
+    path('report/', budget_report, name='budget_report'),
+    path('admin/', admin.site.urls),
+    path('budget/', include('budget.urls')),
 ]
 ]
 

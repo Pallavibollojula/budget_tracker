@@ -1,0 +1,17 @@
+<!-- budget/templates/budget/report.html -->
+
+<h1>Budget Report</h1>
+<table>
+    <tr>
+        <th>Category</th>
+        <th>Limit</th>
+        <th>Spent</th>
+    </tr>
+    {% for category in categories %}
+    <tr>
+        <td>{{ category.name }}</td>
+        <td>{{ category.limit }}</td>
+        <td><!-- Add logic to calculate spent amount --></td>
+    </tr>
+    {% endfor %}
+</table>

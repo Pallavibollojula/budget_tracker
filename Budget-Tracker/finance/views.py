@@ -7,7 +7,8 @@ from django.contrib.auth import get_user_model
 from django.db.models.functions import Coalesce
 from datetime import date
 from django.db.models import Sum, Q, F, DecimalField, ExpressionWrapper
-from .forms import BudgetSettingForm
+from .forms import Budget
+from .models import BudgetCategory
 
  
 User = get_user_model()
@@ -66,7 +67,7 @@ def register_view(request):
             messages.success(request, "Registration successful. Welcome!")
             return redirect('home')
     return render(request, 'register.html')
-
+# Budget settings
 def budget_setting_view(request):
     if request.method == 'POST':
         form = BudgetSettingForm(request.POST)
@@ -77,6 +78,10 @@ def budget_setting_view(request):
         form = BudgetSettingForm()
     categories = Category.objects.filter(user=request.user)
     return render(request, 'budget_setting.html', {'form': form, 'categories': categories})
+# Budget report
+def budget_report(request):
+    categories = BudgetCategory.objects.all()
+    return render(request, 'budget/report.html', {'categories': categories})
 
 
 # Logout view
@@ -383,7 +388,11 @@ def budget_setting_view(request):
         return redirect('budgets')
     categories = Category.objects.filter(user=request.user)
     return render(request, 'budget_setting.html', {'categories': categories}
+# budget report
 
+def budget_report(request):
+    categories = BudgetCategory.objects.all()
+    return render(request, 'budget/report.html', {'categories': categories})
     # EMI summary
     emi_summary = EMI.objects.filter(user=request.user)
 

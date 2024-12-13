@@ -147,3 +147,38 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",  # If you have a global static folder at the root level
 ]
+# settings.py
+
+# Currency Settings
+CURRENCY = 'USD'  # Default currency
+
+# Budget Categories
+BUDGET_CATEGORIES = [
+    'housing',
+    'food',
+    'transportation',
+    'entertainment',
+    # Add more categories as needed
+]
+
+# Budget Limits
+BUDGET_LIMITS = {
+    'housing': 3000,
+    'food': 1000,
+    'transportation': 500,
+    'entertainment': 500,
+    # Add more categories and limits as needed
+}
+
+# Budget Alert Thresholds
+BUDGET_ALERT_THRESHOLDS = {
+    'housing': 0.8,  # Alert when 80% of budget is spent
+    'food': 0.9,
+    'transportation': 0.8,
+    'entertainment': 0.9,
+    # Add more categories and thresholds as needed
+}
+
+# Budget Report Settings
+BUDGET_REPORT_FREQUENCY = 'monthly'  # Report frequency (daily, weekly, monthly)
+BUDGET_REPORT_INCLUDE_CATEGORIES = ['housing', 'food', 'transportation']  # Categories to include in reports
