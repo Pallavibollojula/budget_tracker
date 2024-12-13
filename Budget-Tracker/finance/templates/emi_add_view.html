@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}Add EMI{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="form-container bg-light p-4 rounded shadow-lg" style="width: 500px;">
+        <h2 class="text-center text-success mb-4">Add EMI</h2>
+        <form method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+
+            <!-- Amount Input -->
+            <div class="mb-3">
+                <label for="amount" class="form-label">Amount:</label>
+                <input 
+                    type="number" 
+                    name="amount" 
+                    id="amount" 
+                    class="form-control" 
+                    step="0.01" 
+                    placeholder="Enter the amount" 
+                    required>
+                <div class="invalid-feedback">
+                    Please enter a valid amount.
+                </div>
+            </div>
+
+            <!-- Start Date Input -->
+            <div class="mb-3">
+                <label for="start_date" class="form-label">Start Date:</label>
+                <input 
+                    type="date" 
+                    name="start_date" 
+                    id="start_date" 
+                    class="form-control" 
+                    required>
+                <div class="invalid-feedback">
+                    Please select a start date.
+                </div>
+            </div>
+
+            <!-- End Date Input -->
+            <div class="mb-3">
+                <label for="end_date" class="form-label">End Date:</label>
+                <input 
+                    type="date" 
+                    name="end_date" 
+                    id="end_date" 
+                    class="form-control" 
+                    required>
+                <div class="invalid-feedback">
+                    Please select an end date.
+                </div>
+            </div>
+
+            <!-- Frequency Selection -->
+            <div class="mb-3">
+                <label for="frequency" class="form-label">Frequency:</label>
+                <select 
+                    name="frequency" 
+                    id="frequency" 
+                    class="form-select" 
+                    required>
+                    <option value="Monthly">Monthly</option>
+                    <option value="Quarterly">Quarterly</option>
+                    <option value="Yearly">Yearly</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please select a frequency.
+                </div>
+            </div>
+
+            <!-- Next Payment Date Input -->
+            <div class="mb-3">
+                <label for="next_payment_date" class="form-label">Next Payment Date:</label>
+                <input 
+                    type="date" 
+                    name="next_payment_date" 
+                    id="next_payment_date" 
+                    class="form-control" 
+                    required>
+                <div class="invalid-feedback">
+                    Please select a next payment date.
+                </div>
+            </div>
+
+            <!-- Description Input -->
+            <div class="mb-3">
+                <label for="description" class="form-label">Description:</label>
+                <textarea 
+                    name="description" 
+                    id="description" 
+                    class="form-control" 
+                    placeholder="Optional description"></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-success w-100 py-2">
+                    Save EMI
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap Validation Script -->
+<script>
+    (function () {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Budget Setting{% endblock %}
+
+{% block content %}
+  <div class="container py-5">
+    <h1>Budget Setting</h1>
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="budget-limit" class="form-label">Budget Limit:</label>
+        <input type="number" name="budget-limit" id="budget-limit" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="category" class="form-label">Category:</label>
+        <select name="category" id="category" class="form-select" required>
+          <option value=" disabled selected">Select a category</option>
+          {% for category in categories %}
+            <option value="{{ (link unavailable) }}">{{ category.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Set Budget</button>
+    </form>
+  </div>
+{% endblock %}
