@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Budget Setting{% endblock %}
+
+{% block content %}
+<style>
+    #custom-alert {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1050; /* Ensure it appears above other content */
+        width: 300px; /* Set a fixed width */
+    }
+</style>
+  <div class="container py-5">
+    <h1>Budget Setting</h1>
+    
+    <!-- Alert for budget limit exceeded -->
+    <div id="custom-alert" class="alert alert-warning alert-dismissible fade show" role="alert" style="display: none;">
+      <strong>Alert!</strong> You have exceeded your budget limit for <span id="alert-category"></span>. Please review your expenses.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="budget-limit" class="form-label">Budget Limit:</label>
+        <input type="number" name="budget-limit" id="budget-limit" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="category" class="form-label">Category:</label>
+        <select name="category" id="category" class="form-select" required>
+          <option value="" disabled selected>Select a category</option>
+          {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Set Budget</button>
+    </form>
+  </div>
+
+  <script>
+    function showBudgetAlert(category) {
+        const alertElement = document.getElementById('custom-alert');
+        const alertCategory = document.getElementById('alert-category');
+        
+        alertCategory.textContent = category; // Set the category in the alert
+        alertElement.style.display = 'block'; // Show the alert
+
+        // Automatically hide the alert after 5 seconds
+        setTimeout(() => {
+            alertElement.style.display = 'none';
+        }, 5000);
+    }
+
+    function checkBudgetLimits(expenses, budgetLimits) {
+        for (const category in expenses) {
+            if (expenses[category] > budgetLimits[category]) {
+                showBudgetAlert(category); // Show alert for the exceeded category
+            }
+        }
+    }
+
+    // Example JavaScript to show the alert if the budget limit is exceeded
+    document.querySelector('form').addEventListener('submit', function(event) {
+      const budgetLimit = parseFloat(document.getElementById('budget-limit').value);
+      const selectedCategory = document.getElementById('category').value;
+
+      // Replace this condition with your actual budget checking logic
+      if (budgetLimit > 1000) { // Example condition
+        event.preventDefault(); // Prevent form submission
+        document.getElementById('alert-category').textContent = selectedCategory;
+        document.getElementById('custom-alert').style.display = 'block';
+      }
+    });
+  </script>
+{% endblock %}

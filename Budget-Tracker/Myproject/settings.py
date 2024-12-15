@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'finance',
-     "widget_tweaks",
+    #  "widget_tweaks",
 ]
 
 MIDDLEWARE = [
@@ -84,12 +84,12 @@ DATABASES = {
     }
 }
 
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
 
-if DEBUG:
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# if DEBUG:
+#     STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -138,15 +138,15 @@ LOGIN_URL = '/login/'
  
 AUTH_USER_MODEL = 'finance.User'
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')  
+# STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')  
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / "static",  # If you have a global static folder at the root level
-]
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static",  # If you have a global static folder at the root level
+# ]
 # settings.py
 
 # Currency Settings

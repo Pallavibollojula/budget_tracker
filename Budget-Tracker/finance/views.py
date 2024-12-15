@@ -7,12 +7,13 @@ from django.contrib.auth import get_user_model
 from django.db.models.functions import Coalesce
 from datetime import date
 from django.db.models import Sum, Q, F, DecimalField, ExpressionWrapper
-from .forms import Budget
+from .forms import BudgetForm
 from .models import BudgetCategory
 
  
 User = get_user_model()
  
+@login_required
 def home(request):
     incomes = Income.objects.filter(user=request.user)
     expenses = Expense.objects.filter(user=request.user)
@@ -36,7 +37,7 @@ def home(request):
     return render(request, 'home.html', context)
 
 
-# Login view
+    # Login view
 def login_view(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -51,26 +52,44 @@ def login_view(request):
         messages.error(request, "Invalid email or password.")
     return render(request, 'login.html')
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import login
+from django.contrib.auth.models import User
 
-# Register view
 def register_view(request):
     if request.method == "POST":
         email = request.POST.get('email')
         password = request.POST.get('password')
         name = request.POST.get('name')
         phone = request.POST.get('phone')
+
+        # Check if the email is already in use
         if User.objects.filter(email=email).exists():
             messages.error(request, "Email already in use.")
         else:
-            user = User.objects.create_user(email=email, password=password, name=name, phone=phone)
+            # Create the user
+            user = User.objects.create_user(
+                username=email,  # Use email as the username
+                email=email,
+                password=password
+            )
+            # Add additional user details if necessary
+            user.first_name = name
+            user.save()
+            
+            # Log in the user
             login(request, user)
             messages.success(request, "Registration successful. Welcome!")
             return redirect('home')
+    
+    # Display the registration form
     return render(request, 'register.html')
-# Budget settings
+
+                  
 def budget_setting_view(request):
     if request.method == 'POST':
-        form = BudgetSettingForm(request.POST)
+        form = budget_Setting_view(request.POST)
         if form.is_valid():
             form.save()
             return redirect('budgets')
@@ -387,7 +406,7 @@ def budget_setting_view(request):
         messages.success(request, "Budget setting added successfully.")
         return redirect('budgets')
     categories = Category.objects.filter(user=request.user)
-    return render(request, 'budget_setting.html', {'categories': categories}
+    return render(request, 'budget_setting.html', {'categories': categories})
 # budget report
 
 def budget_report(request):

@@ -1,10 +1,10 @@
  
-from django.urls import path
+from django.urls import path, include
 from . import views
 from django.conf import settings
 from .views import budget_report
 from django.contrib import admin
-from django.urls import path, include
+
 urlpatterns = [
     path("", views.home, name="home"),  # Home page
    path("dashboard/", views.dashboard_view, name="dashboard"),
@@ -34,10 +34,8 @@ urlpatterns = [
     path('budget-setting/', views.budget_setting_view, name='budget_setting'),
     path('report/', budget_report, name='budget_report'),
     path('admin/', admin.site.urls),
-    path('budget/', include('budget.urls')),
+    #path('budget/', include('budget.urls')),
 ]
-]
-
 # from django.conf.urls.static import static
 
 # if settings.DEBUG:
